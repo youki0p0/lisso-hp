@@ -1,0 +1,64 @@
+/* LISSO · Interaction states for component class hooks.
+   Components render inline styles for their base look; hover/press/focus
+   live here so they stay real CSS. Calm: subtle lightening, never bounce. */
+
+/* ── Button ───────────────────────────────────────────────────── */
+.lisso-button { -webkit-tap-highlight-color: transparent; }
+.lisso-button[data-variant="primary"]:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+.lisso-button[data-variant="primary"]:active:not(:disabled) {
+  background: var(--accent-press);
+  border-color: var(--accent-press);
+}
+.lisso-button[data-variant="secondary"]:hover:not(:disabled) {
+  border-color: var(--paper-300);
+  color: var(--paper-50);
+}
+.lisso-button[data-variant="secondary"]:active:not(:disabled) {
+  background: color-mix(in oklab, var(--paper-50) 6%, transparent);
+}
+.lisso-button[data-variant="ghost"]:hover:not(:disabled) {
+  color: var(--text-primary);
+}
+.lisso-button:active:not(:disabled) { transform: translateY(0.5px); }
+
+/* ── Tag / Badge ──────────────────────────────────────────────── */
+.lisso-tag[data-interactive="true"]:hover {
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+/* ── Card ─────────────────────────────────────────────────────── */
+.lisso-card[data-interactive="true"] {
+  cursor: pointer;
+  transition: border-color var(--dur-base) var(--ease-standard),
+              transform var(--dur-base) var(--ease-standard),
+              background var(--dur-base) var(--ease-standard);
+}
+.lisso-card[data-interactive="true"]:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+}
+
+/* ── Input ────────────────────────────────────────────────────── */
+.lisso-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.lisso-input::placeholder { color: var(--text-tertiary); }
+
+/* ── Link with quiet gold underline reveal ────────────────────── */
+.lisso-link {
+  color: var(--text-primary);
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size var(--dur-base) var(--ease-standard),
+              color var(--dur-fast) var(--ease-standard);
+  padding-bottom: 2px;
+}
+.lisso-link:hover { background-size: 100% 1px; color: var(--text-accent); }
