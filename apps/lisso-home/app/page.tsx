@@ -52,7 +52,7 @@ export default function Page() {
       <Hero onNavigate={go} />
       <Divisions onNavigate={go} />
       <Shisha onNavigate={go} />
-      <Shop onNavigate={go} />
+      <Shop />
       <FlavorOS onNavigate={go} />
       <Technology onNavigate={go} />
       <CompanyContact />

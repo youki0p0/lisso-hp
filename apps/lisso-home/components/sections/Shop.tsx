@@ -180,11 +180,7 @@ const OLIVE_SCOPE = {
   "--border-accent": "var(--olive-600)",
 } as React.CSSProperties;
 
-export function Shop({
-  onNavigate = () => {},
-}: {
-  onNavigate?: (key: string) => void;
-}) {
+export function Shop() {
   const [filter, setFilter] = React.useState("all");
   const [cart, setCart] = React.useState(0);
   const shown = SHOP_PRODUCTS.filter((p) => filter === "all" || p.cat === filter);
