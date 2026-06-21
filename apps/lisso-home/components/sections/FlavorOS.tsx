@@ -8,6 +8,7 @@ import { VectorBar } from "@/components/ds/VectorBar";
 import { Card } from "@/components/ds/Card";
 import { Section } from "@/components/kit/Section";
 import { Icon } from "@/components/kit/Icon";
+import { FLAVOR_OS_URL } from "@/lib/links";
 
 /** LISSO Home — Flavor OS. Inventory → Mix → Share, with a taste profile. */
 
@@ -53,11 +54,7 @@ const OLIVE_SCOPE = {
   "--border-accent": "var(--olive-600)",
 } as React.CSSProperties;
 
-export function FlavorOS({
-  onNavigate = () => {},
-}: {
-  onNavigate?: (key: string) => void;
-}) {
+export function FlavorOS() {
   return (
     <Section id="flavor-os" bg="var(--bg-page)" style={OLIVE_SCOPE}>
       <div
@@ -112,8 +109,11 @@ export function FlavorOS({
           </div>
           <Button
             variant="primary"
-            onClick={() => onNavigate("flavor-os")}
-            iconRight={<Icon name="arrow-right" size={15} />}
+            as="a"
+            href={FLAVOR_OS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            iconRight={<Icon name="external-link" size={15} />}
           >
             Flavor OS を体験
           </Button>

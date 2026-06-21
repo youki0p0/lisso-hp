@@ -6,13 +6,10 @@ import { Button } from "@/components/ds/Button";
 import { Section } from "@/components/kit/Section";
 import { Photo } from "@/components/kit/Photo";
 import { Icon } from "@/components/kit/Icon";
+import { FLAVOR_OS_URL } from "@/lib/links";
 
 /** LISSO Home — Shisha Division: real shop (Shisha Shop & Cafe Lisso). */
-export function Shisha({
-  onNavigate = () => {},
-}: {
-  onNavigate?: (key: string) => void;
-}) {
+export function Shisha() {
   const feed = [
     "新作 Mix",
     "店内のしつらえ",
@@ -141,8 +138,11 @@ export function Shisha({
           </div>
           <Button
             variant="secondary"
-            onClick={() => onNavigate("flavor-os")}
-            iconRight={<Icon name="arrow-right" size={15} />}
+            as="a"
+            href={FLAVOR_OS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            iconRight={<Icon name="external-link" size={15} />}
           >
             Flavor OS でレシピを見る
           </Button>

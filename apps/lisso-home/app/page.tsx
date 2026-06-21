@@ -51,9 +51,9 @@ export default function Page() {
       </div>
       <Hero onNavigate={go} />
       <Divisions onNavigate={go} />
-      <Shisha onNavigate={go} />
+      <Shisha />
       <Shop />
-      <FlavorOS onNavigate={go} />
+      <FlavorOS />
       <Technology onNavigate={go} />
       <CompanyContact />
       <Footer onNavigate={go} />
