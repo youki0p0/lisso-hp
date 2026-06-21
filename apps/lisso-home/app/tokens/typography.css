@@ -1,0 +1,48 @@
+/* LISSO · Typography tokens
+   明朝 for intellect, ゴシック for honesty, mono for technical data.
+   Japanese-first: line-height runs generous to breathe around kanji. */
+
+:root {
+  /* ── Families ─────────────────────────────────────────────────── */
+  --font-serif: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", serif;
+  --font-sans:  "Zen Kaku Gothic New", "Hiragino Kaku Gothic ProN", "Yu Gothic", "YuGothic", system-ui, sans-serif;
+  --font-mono:  "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Semantic family roles */
+  --font-display: var(--font-serif); /* headlines, hero, section titles */
+  --font-body:    var(--font-sans);  /* paragraphs, UI, labels */
+  --font-data:    var(--font-mono);  /* vectors, metrics, code, Build/Secure/Improve */
+
+  /* ── Type scale (mobile-first rem) ────────────────────────────── */
+  --text-xs:   0.75rem;   /* 12 — micro labels */
+  --text-sm:   0.8125rem; /* 13 — captions, eyebrows */
+  --text-base: 0.9375rem; /* 15 — UI default */
+  --text-body: 1rem;      /* 16 — reading body */
+  --text-md:   1.125rem;  /* 18 — lead paragraph */
+  --text-lg:   1.375rem;  /* 22 */
+  --text-xl:   1.75rem;   /* 28 */
+  --text-2xl:  2.25rem;   /* 36 */
+  --text-3xl:  3rem;      /* 48 */
+  --text-4xl:  4rem;      /* 64 */
+  --text-5xl:  5.5rem;    /* 88 — hero */
+
+  /* ── Line height ──────────────────────────────────────────────── */
+  --leading-tight:   1.14;  /* display headlines */
+  --leading-snug:    1.35;
+  --leading-normal:  1.6;
+  --leading-relaxed: 1.95;  /* JP body copy */
+
+  /* ── Letter spacing ───────────────────────────────────────────── */
+  --tracking-tighter: -0.03em; /* large serif display */
+  --tracking-tight:   -0.015em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.08em;
+  --tracking-wider:   0.18em;  /* eyebrows, nav, all-caps Latin labels */
+  --tracking-widest:  0.32em;  /* vertical / mono accent labels */
+
+  /* ── Weights ──────────────────────────────────────────────────── */
+  --weight-regular:  400;
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+}

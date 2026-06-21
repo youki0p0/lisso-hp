@@ -1,0 +1,43 @@
+/* LISSO · Responsive overrides.
+   The kits use inline grid styles; these attribute-selector rules collapse
+   the common multi-column patterns at tablet/phone widths (and use !important
+   to win over inline styles). Marketing pages are the priority — the app
+   surfaces are desktop tools and degrade gracefully. */
+
+/* ── Tablet ───────────────────────────────────────────────────── */
+@media (max-width: 860px) {
+  /* two-column content & split sections → single column */
+  [style*="grid-template-columns: 1fr 1fr"]      { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: 1fr 1px 1fr"]  { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: 1.3fr 1fr"]    { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: 1.4fr 1fr"]    { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: 1fr 360px"]    { grid-template-columns: 1fr !important; }
+  /* 4- and 3-up grids → 2-up */
+  [style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: 1fr 1fr !important; }
+  [style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: 1fr 1fr !important; }
+  [style*="grid-template-columns: repeat(6, 1fr)"] { grid-template-columns: repeat(3, 1fr) !important; }
+
+  /* hide the divider column when split sections collapse */
+  [style*="grid-template-columns: 1fr 1px 1fr"] > [style*="background: var(--border-hairline)"] { display: none !important; }
+
+  /* condensed global nav: drop the center links, keep logo + Contact */
+  .lisso-nav-links { display: none !important; }
+  .lisso-nav { padding-left: var(--space-5) !important; padding-right: var(--space-5) !important; }
+}
+
+/* ── Phone ────────────────────────────────────────────────────── */
+@media (max-width: 540px) {
+  [style*="grid-template-columns: repeat(4, 1fr)"] { grid-template-columns: 1fr 1fr !important; }
+  [style*="grid-template-columns: repeat(3, 1fr)"] { grid-template-columns: 1fr !important; }
+  [style*="grid-template-columns: repeat(6, 1fr)"] { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* company info rows: label over value */
+  [style*="grid-template-columns: 8rem 1fr"] { grid-template-columns: 1fr !important; gap: var(--space-1) !important; }
+
+  /* tighten oversized section rhythm on phones */
+  .lz-section { padding-top: var(--space-8) !important; padding-bottom: var(--space-8) !important; }
+
+  /* hero: reduce top padding, shrink the wide bottom tagline so it doesn't overflow */
+  .lz-hero { min-height: auto !important; padding-top: var(--space-8) !important; padding-bottom: var(--space-9) !important; }
+  .lz-hero-tag { font-size: 9px !important; letter-spacing: 0.18em !important; width: 100%; text-align: center; padding: 0 var(--space-4); white-space: normal !important; }
+}

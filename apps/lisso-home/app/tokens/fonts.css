@@ -1,0 +1,10 @@
+/* LISSO webfonts
+   Japanese-first pairing:
+   - Shippori Mincho  → serif / 明朝  (intellect, display headlines)
+   - Zen Kaku Gothic New → sans / ゴシック (honesty, body & UI)
+   - IBM Plex Mono    → mono (technical data: vectors, code, metrics)
+
+   Loaded from Google Fonts. If you need self-hosted binaries, download these
+   families and replace this @import with local @font-face rules. */
+
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
