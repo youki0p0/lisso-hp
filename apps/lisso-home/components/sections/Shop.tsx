@@ -386,7 +386,7 @@ export function Shop() {
           color: "var(--text-tertiary)",
         }}
       >
-        ※ ストアは準備中。商品・価格は仮置きです。Flavor OS
+        ※ ストアは準備中。商品・価格は仮置きです。ShishaOS
         の購入提案と在庫連携予定。20歳以上対象。
       </p>
     </Section>

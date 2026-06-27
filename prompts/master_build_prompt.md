@@ -7,7 +7,7 @@ LISSO has two divisions:
 1. Shisha Division
 2. Technology Division
 
-The Shisha side includes a store, EC, and Flavor OS.
+The Shisha side includes a store, EC, and ShishaOS.
 The Technology side includes infrastructure, cyber security, DX promotion, cloud migration, and SES.
 
 Build the product as a polished, elegant, dark-mode-first web ecosystem.

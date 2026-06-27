@@ -5,7 +5,7 @@
 Use Vercel for:
 
 - lisso-home
-- flavor-os frontend
+- shisha-os frontend
 - lisso-ec frontend
 - OGP pages
 - public pages

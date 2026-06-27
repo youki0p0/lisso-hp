@@ -6,7 +6,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Divisions } from "@/components/sections/Divisions";
 import { Shisha } from "@/components/sections/Shisha";
 import { Shop } from "@/components/sections/Shop";
-import { FlavorOS } from "@/components/sections/FlavorOS";
+import { ShishaOS } from "@/components/sections/ShishaOS";
 import { Technology } from "@/components/sections/Technology";
 import { CompanyContact, Footer } from "@/components/sections/CompanyContact";
 
@@ -29,7 +29,7 @@ export default function Page() {
   };
 
   React.useEffect(() => {
-    const ids = ["shisha", "shop", "flavor-os", "technology", "company"];
+    const ids = ["shisha", "shop", "shisha-os", "technology", "company"];
     const onScroll = () => {
       const y = window.scrollY + 120;
       let cur = "home";
@@ -53,7 +53,7 @@ export default function Page() {
       <Divisions onNavigate={go} />
       <Shisha />
       <Shop />
-      <FlavorOS />
+      <ShishaOS />
       <Technology onNavigate={go} />
       <CompanyContact />
       <Footer onNavigate={go} />

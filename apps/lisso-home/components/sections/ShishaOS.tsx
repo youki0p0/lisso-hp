@@ -8,9 +8,9 @@ import { VectorBar } from "@/components/ds/VectorBar";
 import { Card } from "@/components/ds/Card";
 import { Section } from "@/components/kit/Section";
 import { Icon } from "@/components/kit/Icon";
-import { FLAVOR_OS_URL } from "@/lib/links";
+import { SHISHAOS_URL } from "@/lib/links";
 
-/** LISSO Home — Flavor OS. Inventory → Mix → Share, with a taste profile. */
+/** LISSO Home — ShishaOS. Inventory → Mix → Share, with a taste profile. */
 
 function Step({ n, title, desc }: { n: string; title: string; desc: string }) {
   return (
@@ -54,9 +54,9 @@ const OLIVE_SCOPE = {
   "--border-accent": "var(--olive-600)",
 } as React.CSSProperties;
 
-export function FlavorOS() {
+export function ShishaOS() {
   return (
-    <Section id="flavor-os" bg="var(--bg-page)" style={OLIVE_SCOPE}>
+    <Section id="shisha-os" bg="var(--bg-page)" style={OLIVE_SCOPE}>
       <div
         style={{
           display: "grid",
@@ -67,7 +67,7 @@ export function FlavorOS() {
       >
         <div>
           <Eyebrow index="03" style={{ color: "var(--text-accent-2)" }}>
-            Flavor OS
+            ShishaOS
           </Eyebrow>
           <h2
             style={{
@@ -110,12 +110,12 @@ export function FlavorOS() {
           <Button
             variant="primary"
             as="a"
-            href={FLAVOR_OS_URL}
+            href={SHISHAOS_URL}
             target="_blank"
             rel="noopener noreferrer"
             iconRight={<Icon name="external-link" size={15} />}
           >
-            Flavor OS を体験
+            ShishaOS を体験
           </Button>
         </div>
 

@@ -9,7 +9,7 @@ lisso-platform
 Alternative names:
 
 ```txt
-lisso-flavor-os
+lisso-shisha-os
 lisso-web-ecosystem
 lisso-os
 ```
@@ -29,7 +29,7 @@ git push -u origin main
 
 - main: stable
 - develop: active integration
-- feature/flavor-os-admin
+- feature/shisha-os-admin
 - feature/home-site
 - feature/cloud-run-api
 

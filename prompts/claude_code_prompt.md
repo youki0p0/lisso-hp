@@ -17,7 +17,7 @@ Build the LISSO web ecosystem using the documents in this repository as the sour
 ## Applications
 
 - apps/lisso-home
-- apps/flavor-os
+- apps/shisha-os
 - apps/lisso-ec
 - apps/cloud-run-api
 
@@ -26,7 +26,7 @@ Build the LISSO web ecosystem using the documents in this repository as the sour
 Create a working MVP with:
 
 1. Corporate top page with Shisha and Technology division split.
-2. Flavor OS landing page.
+2. ShishaOS landing page.
 3. Flavor inventory admin UI.
 4. Natural-language sensory evaluation input.
 5. AI parse review screen with editable taste vector.

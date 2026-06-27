@@ -1,4 +1,4 @@
-# flavor-os
+# shisha-os
 
 Shisha sensory sharing application.
 

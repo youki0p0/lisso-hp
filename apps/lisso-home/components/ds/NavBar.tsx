@@ -13,7 +13,7 @@ export type NavLink = { key: string; label: string; jp: string };
 const DEFAULT_LINKS: NavLink[] = [
   { key: "home", label: "Home", jp: "ホーム" },
   { key: "shisha", label: "Shisha", jp: "シーシャ" },
-  { key: "flavor-os", label: "Flavor OS", jp: "フレーバーOS" },
+  { key: "shisha-os", label: "ShishaOS", jp: "シーシャOS" },
   { key: "shop", label: "Shop", jp: "ショップ" },
   { key: "technology", label: "Technology", jp: "技術" },
   { key: "company", label: "Company", jp: "会社" },

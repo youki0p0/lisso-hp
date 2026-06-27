@@ -36,7 +36,7 @@ components/
                     Button · Card · Divider · Eyebrow · Input · Logo · Stat ·
                     Tag · VectorBar · NavBar
   kit/              page helpers: Section · Photo · Icon (lucide-react)
-  sections/         Hero · Divisions · Shisha · Shop · FlavorOS · Technology ·
+  sections/         Hero · Divisions · Shisha · Shop · ShishaOS · Technology ·
                     CompanyContact (+ Footer)
 public/assets/      brand marks, product photo, textures
 ```
@@ -47,7 +47,7 @@ public/assets/      brand marks, product photo, textures
 2. **Two Divisions** — Shisha | Technology, split with a hairline divider.
 3. **Shisha Division** — café intro, access/meta, Instagram feed grid.
 4. **Shop** — BASE storefront preview (`lisso.base.shop`); products are placeholders.
-5. **Flavor OS** — inventory → mix → reproduce flow + a live taste-vector card.
+5. **ShishaOS** — inventory → mix → reproduce flow + a live taste-vector card.
 6. **Technology Division** — Build. Secure. Improve., capabilities, track record.
 7. **Company / Contact** — company table + contact form (20+ / no-health-claims notice).
 8. **Footer** — wordmark, links, responsible-use line.

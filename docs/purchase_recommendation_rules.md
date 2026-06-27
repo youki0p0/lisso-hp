@@ -1,6 +1,6 @@
 # Purchase Recommendation Rules
 
-Flavor OS should recommend purchases based on flavor architecture, not hype.
+ShishaOS should recommend purchases based on flavor architecture, not hype.
 
 ## Criteria
 
