@@ -29,7 +29,7 @@ LISSO is a company that designs experiences.
 
 - Home
 - Shisha
-- Flavor OS
+- ShishaOS
 - Shop
 - Technology
 - Technology / Infrastructure
@@ -39,7 +39,7 @@ LISSO is a company that designs experiences.
 - Company
 - Contact
 
-### Flavor OS App
+### ShishaOS App
 
 - Landing
 - Login

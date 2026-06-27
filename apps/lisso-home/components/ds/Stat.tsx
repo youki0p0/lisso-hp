@@ -2,7 +2,7 @@ import React from "react";
 
 /**
  * LISSO Stat — a large serif figure over a mono caption. Used for the
- * Technology division's track record (3 years, 13 projects) and Flavor OS
+ * Technology division's track record (3 years, 13 projects) and ShishaOS
  * metrics. Numbers are the protagonist; labels stay quiet.
  */
 export type StatProps = {

@@ -5,7 +5,7 @@
 ```txt
 /
 /shisha
-/flavor-os
+/shisha-os
 /shop
 /business
 /business/ses
@@ -23,7 +23,7 @@ The top page should split the company into two clear divisions.
 ### Shisha / Flavor
 
 - Store introduction
-- Flavor OS
+- ShishaOS
 - EC shop
 - Mixology articles
 - Access
@@ -43,7 +43,7 @@ Recommended global navigation:
 
 - Home
 - Shisha
-- Flavor OS
+- ShishaOS
 - Shop
 - Technology
 - Company

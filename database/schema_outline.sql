@@ -1,4 +1,4 @@
--- LISSO Flavor OS initial schema outline
+-- LISSO ShishaOS initial schema outline
 -- This is not final production SQL. Use it as a design reference.
 
 CREATE TABLE brands (

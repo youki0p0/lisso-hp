@@ -5,8 +5,8 @@ This repository is a preparation package for building the LISSO web ecosystem.
 ## Projects
 
 - **LISSO Home**: Corporate website for Shisha Division and Technology Division.
-- **Flavor OS**: Shisha flavor inventory, mixology recommendation, sensory database, and recipe sharing app.
-- **LISSO EC**: Self-hosted ecommerce service connected to Flavor OS and product inventory.
+- **ShishaOS**: Shisha flavor inventory, mixology recommendation, sensory database, and recipe sharing app.
+- **LISSO EC**: Self-hosted ecommerce service connected to ShishaOS and product inventory.
 - **Cloud Run API**: Backend API for AI recommendation, recipe conversion, admin operations, and integrations.
 
 ## Philosophy
@@ -31,6 +31,6 @@ LISSO is a company that designs experiences.
 
 1. Push this repository to GitHub.
 2. Give the contents of `docs/`, `.claude/`, and `prompts/` to Claude Design and Claude Code/Fable.
-3. Start implementation from `apps/lisso-home`, `apps/flavor-os`, and `apps/cloud-run-api`.
+3. Start implementation from `apps/lisso-home`, `apps/shisha-os`, and `apps/cloud-run-api`.
 4. Keep all design decisions aligned with `.claude/design_principles.md`.
 

@@ -7,7 +7,7 @@ Recommended structure:
 ```txt
 apps/
   lisso-home/
-  flavor-os/
+  shisha-os/
   lisso-ec/
   cloud-run-api/
 docs/
@@ -23,7 +23,7 @@ ops/
 
 Corporate website for both Shisha and Technology divisions.
 
-### flavor-os
+### shisha-os
 
 Main application for inventory, mixology, recipe sharing, admin, and AI recommendations.
 

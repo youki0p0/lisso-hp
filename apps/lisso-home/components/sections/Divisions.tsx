@@ -135,8 +135,8 @@ export function Divisions({
           kicker="Shisha Division"
           title="Shisha"
           jp="吸う料理 — smokable gastronomy"
-          desc="甘味・酸味・清涼・塩味・余韻・温度変化まで設計する、理論のシーシャ。実店舗カフェと味覚共有OS「Flavor OS」。"
-          tags={["Aroma", "Mixology", "Gastronomy", "Flavor OS"]}
+          desc="甘味・酸味・清涼・塩味・余韻・温度変化まで設計する、理論のシーシャ。実店舗カフェと味覚共有OS「ShishaOS」。"
+          tags={["Aroma", "Mixology", "Gastronomy", "ShishaOS"]}
           route="shisha"
           onNavigate={onNavigate}
           tint="var(--text-accent-2)"

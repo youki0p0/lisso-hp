@@ -1,6 +1,6 @@
-# Flavor OS Admin Requirements
+# ShishaOS Admin Requirements
 
-Flavor OS requires an internal admin panel.
+ShishaOS requires an internal admin panel.
 
 ## Admin Routes
 

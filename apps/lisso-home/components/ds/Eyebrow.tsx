@@ -2,7 +2,7 @@ import React from "react";
 
 /**
  * LISSO Eyebrow — the mono, letterspaced kicker that sits above headings
- * across the brand (e.g. "SHISHA DIVISION", "FLAVOR OS"). Often paired with
+ * across the brand (e.g. "SHISHA DIVISION", "SHISHAOS"). Often paired with
  * a leading index number like "01 /". This is a core brand signature.
  */
 export type EyebrowProps = {

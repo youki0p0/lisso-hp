@@ -189,7 +189,7 @@ export function Footer({
 }: {
   onNavigate?: (key: string) => void;
 }) {
-  const links = ["Shisha", "Flavor OS", "Shop", "Technology", "Company", "Contact"];
+  const links = ["Shisha", "ShishaOS", "Shop", "Technology", "Company", "Contact"];
   return (
     <footer
       style={{

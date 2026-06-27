@@ -2,7 +2,7 @@ import React from "react";
 
 /**
  * LISSO VectorBar — a single sensory dimension rendered as a thin track with
- * an olive fill, value shown in mono. The atomic unit of Flavor OS taste
+ * an olive fill, value shown in mono. The atomic unit of ShishaOS taste
  * vectors (sweetness, acidity, cooling…) — olive marks the Shisha side.
  * Scale defaults to 0–10. Pass `color` to override the fill.
  */
