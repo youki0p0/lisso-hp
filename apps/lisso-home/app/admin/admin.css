@@ -1,0 +1,143 @@
+/* ===== SHISHA LISSO 管理画面 ===== */
+.lisso-admin{
+  --bg:#0c0c0e; --panel:#16161a; --line:#2a2a31; --ink:#efe9e0; --muted:#9a948c;
+  --rose:#e7b6c2; --rose-deep:#caa6ad; --blue:#5b82bd; --red:#c0504a;
+  --cream:#efe9e0; --cream-ink:#1c1a17; --dark-cell:#202027; --accent:#d99aa9;
+  min-height:100vh; background:var(--bg); color:var(--ink);
+  font-family:"Hiragino Sans","Yu Gothic UI","Noto Sans JP",system-ui,sans-serif;
+}
+.lisso-admin *{box-sizing:border-box}
+.la-wrap{max-width:1040px;margin:0 auto;padding:1.2rem 1rem 5rem}
+
+/* top bar */
+.la-top{display:flex;align-items:center;gap:1rem;padding:.6rem 0 1rem;border-bottom:1px solid var(--line);margin-bottom:1.2rem}
+.la-brand{font-family:"Times New Roman",serif;letter-spacing:.22em;font-size:1.15rem;color:var(--rose)}
+.la-brand small{display:block;letter-spacing:.3em;font-size:.6rem;color:var(--muted)}
+.la-spacer{flex:1}
+.la-who{font-size:.82rem;color:var(--muted)}
+.la-who b{color:var(--ink)}
+.la-btn{cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink);
+  padding:.5rem .9rem;border-radius:.5rem;font-size:.85rem}
+.la-btn:hover{border-color:var(--accent)}
+.la-btn.primary{background:var(--accent);border-color:var(--accent);color:#1a1013;font-weight:700}
+.la-btn.primary:hover{background:var(--rose)}
+.la-btn.ghost{background:transparent}
+.la-btn.sm{padding:.3rem .55rem;font-size:.78rem}
+.la-btn.danger{border-color:#7a3b3b;color:#e6a3a3}
+
+/* tabs */
+.la-tabs{display:flex;gap:.4rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.la-tab{cursor:pointer;padding:.55rem 1rem;border-radius:2rem;border:1px solid var(--line);
+  background:transparent;color:var(--muted);font-size:.88rem}
+.la-tab.active{background:var(--accent);color:#1a1013;border-color:var(--accent);font-weight:700}
+
+/* calendar */
+.la-calhead{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.la-month{font-family:"Times New Roman",serif;font-size:1.6rem;color:var(--rose)}
+.la-month b{font-size:2.4rem;margin-right:.4rem;color:var(--accent)}
+.la-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:.4rem;overflow:hidden}
+.la-dow{background:#111;color:var(--ink);text-align:center;padding:.5rem 0;font-size:.85rem}
+.la-dow.sat{color:var(--blue)} .la-dow.sun{color:var(--red)}
+.la-cell{background:var(--cream);color:var(--cream-ink);min-height:92px;padding:.45rem .5rem;position:relative;cursor:pointer;transition:filter .12s}
+.la-cell:hover{filter:brightness(.97)}
+.la-cell.empty{background:#131316;cursor:default}
+.la-cell.closed{background:var(--dark-cell);color:#cfcfd4}
+.la-cell .d{font-size:1.15rem;font-family:"Times New Roman",serif}
+.la-cell.sat .d{color:var(--blue)} .la-cell.sun .d,.la-cell.holiday .d{color:var(--red)}
+.la-cell.closed .d{color:#e7d9dd}
+.la-cell .hours{font-size:.72rem;margin-top:.35rem;color:#4a463f}
+.la-cell.closed .hours,.la-cell .rest{font-size:.72rem;margin-top:.35rem;color:#bdb6bd}
+.la-cell .rest{text-align:center;margin-top:.5rem}
+.la-cell .x{position:absolute;top:.4rem;right:.5rem;color:#8a8a90;font-size:.8rem}
+.la-cell .who{position:absolute;bottom:.35rem;right:.5rem;font-size:.66rem;color:#7a756e;background:#ffffff66;padding:0 .25rem;border-radius:.25rem}
+.la-cell.ov{box-shadow:inset 0 0 0 2px var(--accent)}
+
+.la-legend{display:flex;gap:1rem;flex-wrap:wrap;margin:.8rem 0;font-size:.76rem;color:var(--muted)}
+.la-legend span{display:inline-flex;align-items:center;gap:.35rem}
+.la-sw{width:.9rem;height:.9rem;border-radius:.2rem;display:inline-block;border:1px solid var(--line)}
+
+/* settings row */
+.la-settings{display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-end;background:var(--panel);
+  border:1px solid var(--line);border-radius:.6rem;padding:1rem;margin-bottom:1.2rem}
+.la-field{display:flex;flex-direction:column;gap:.3rem}
+.la-field label{font-size:.72rem;color:var(--muted)}
+.la-field select,.la-field input{background:#0e0e11;border:1px solid var(--line);color:var(--ink);
+  padding:.45rem .55rem;border-radius:.45rem;font-size:.85rem;min-width:90px}
+
+/* table */
+.la-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.la-table th,.la-table td{border:1px solid var(--line);padding:.5rem .6rem;text-align:left}
+.la-table th{background:#111;color:var(--muted);font-weight:600}
+.la-table input,.la-table select{background:#0e0e11;border:1px solid var(--line);color:var(--ink);padding:.35rem .4rem;border-radius:.35rem;width:100%}
+.la-tr-total td{font-weight:700;background:#14141a}
+
+/* modal */
+.la-modal-bg{position:fixed;inset:0;background:#000a;display:flex;align-items:center;justify-content:center;z-index:60;padding:1rem}
+.la-modal{background:var(--panel);border:1px solid var(--line);border-radius:.8rem;max-width:440px;width:100%;padding:1.3rem}
+.la-modal h3{margin:.1rem 0 1rem;font-size:1.05rem}
+.la-modal .row{display:flex;gap:.7rem;flex-wrap:wrap;margin-bottom:.9rem}
+.la-modal .actions{display:flex;gap:.6rem;justify-content:flex-end;margin-top:1.2rem}
+
+/* login */
+.la-login{max-width:380px;margin:8vh auto;background:var(--panel);border:1px solid var(--line);border-radius:1rem;padding:2rem}
+.la-login h1{font-family:"Times New Roman",serif;letter-spacing:.2em;color:var(--rose);text-align:center;font-size:1.3rem;margin:.2rem 0 .2rem}
+.la-login p.sub{text-align:center;color:var(--muted);font-size:.72rem;letter-spacing:.25em;margin:0 0 1.6rem}
+.la-login label{display:block;font-size:.76rem;color:var(--muted);margin:.8rem 0 .3rem}
+.la-login input{width:100%;background:#0e0e11;border:1px solid var(--line);color:var(--ink);padding:.6rem .7rem;border-radius:.5rem}
+.la-err{color:#eaa0a0;font-size:.8rem;margin-top:.8rem;text-align:center}
+.la-note{font-size:.74rem;color:var(--muted);margin-top:.6rem}
+.la-hint{font-size:.78rem;color:var(--muted);background:#0e0e11;border:1px dashed var(--line);border-radius:.5rem;padding:.7rem .8rem;margin-top:1rem;line-height:1.7}
+
+.la-section-title{font-size:1.05rem;margin:0 0 .9rem;color:var(--ink)}
+.la-muted{color:var(--muted);font-size:.85rem}
+.la-pill{display:inline-block;font-size:.7rem;padding:.1rem .5rem;border-radius:1rem;border:1px solid var(--line);color:var(--muted)}
+.la-pill.admin{color:#1a1013;background:var(--accent);border-color:var(--accent)}
+
+@media (max-width:640px){
+  .la-cell{min-height:74px}
+  .la-cell .hours,.la-cell .rest{font-size:.62rem}
+  .la-month b{font-size:1.8rem}
+}
+
+/* ===== 印刷（PDF）ビュー ===== */
+.la-print{display:none}
+@media screen{ .la-print{display:none !important} }
+@media print{
+  .lisso-admin .la-screen{display:none !important}
+  .la-print{display:block !important}
+  @page{size:A4;margin:12mm}
+  body{background:#fff}
+}
+
+/* 印刷カレンダー（参考デザイン準拠） */
+.lp-cal,.lp-menu{
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  background:#0c0b0d; color:#efe9e0; padding:14mm 12mm; border-radius:4px;
+  font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+}
+.lp-title{text-align:center;font-family:"Times New Roman",serif;letter-spacing:.28em;font-size:30px;color:#f0d9df}
+.lp-sub{text-align:center;color:#caa6ad;letter-spacing:.2em;font-size:13px;margin:4px 0 14px}
+.lp-month{font-size:18px;color:#e7b6c2;margin:0 0 10px}
+.lp-month b{font-size:30px;color:#e7b6c2;margin-right:8px}
+.lp-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:#3a3a40;border:1px solid #3a3a40}
+.lp-dow{background:#111;text-align:center;padding:6px 0;font-size:12px;color:#efe9e0}
+.lp-dow.sat{color:#5b82bd}.lp-dow.sun{color:#c0504a}
+.lp-cell{background:#efe9e0;color:#1c1a17;min-height:62px;padding:5px 6px}
+.lp-cell.empty{background:#0c0b0d}
+.lp-cell.closed{background:#202027;color:#cfcfd4}
+.lp-d{font-family:"Times New Roman",serif;font-size:16px}
+.lp-cell.sat .lp-d{color:#3f63a0}.lp-cell.sun .lp-d{color:#b03a3a}
+.lp-cell.closed.sun .lp-d{color:#e08a8a}
+.lp-h{font-size:10px;margin-top:3px;color:#4a463f;text-align:center}
+.lp-cell.closed .lp-h{color:#bdb6bd}
+.lp-x{font-size:11px}
+.lp-foot{text-align:center;font-family:"Times New Roman",serif;letter-spacing:.25em;margin-top:16px;color:#e9d6db;font-size:15px}
+.lp-addr{text-align:center;color:#b8b1a8;font-size:11px;margin-top:6px}
+
+/* 印刷メニュー */
+.lp-mcat{margin:14px 0}
+.lp-mcat h3{color:#e7b6c2;border-bottom:1px solid #5a4a50;padding-bottom:4px;font-size:15px;letter-spacing:.1em}
+.lp-mrow{display:flex;align-items:baseline;gap:8px;margin:7px 2px;font-size:13px}
+.lp-mname{white-space:nowrap}
+.lp-dots{flex:1;border-bottom:1px dotted #6a635c;transform:translateY(-3px)}
+.lp-mprice{white-space:nowrap;color:#f0d9df}
