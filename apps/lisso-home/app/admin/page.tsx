@@ -36,11 +36,11 @@ export default function AdminPage() {
   React.useEffect(() => {
     if (!userId) { setProfile(null); return; }
     (async () => {
-      const me = await supabase.from("lisso_profiles").select("*").eq("id", userId).maybeSingle();
+      const me = await supabase.from("profiles").select("id, display_name, role").eq("id", userId).maybeSingle();
       if (!me.data) { setNoProfile(true); return; }
       setNoProfile(false);
       setProfile(me.data as Profile);
-      const all = await supabase.from("lisso_profiles").select("*").order("role");
+      const all = await supabase.from("profiles").select("id, display_name, role").order("role");
       setProfiles((all.data as Profile[]) ?? []);
       if ((me.data as Profile).role !== "admin") setTab("timecard");
     })();
@@ -53,7 +53,7 @@ export default function AdminPage() {
 
   const logout = async () => { await supabase.auth.signOut(); setProfile(null); };
 
-  const staffNames = profiles.length ? profiles.map((p) => p.name) : ["ゆうき", "さおとめ"];
+  const staffNames = profiles.length ? profiles.map((p) => p.display_name) : ["ゆうき", "さおとめ"];
 
   if (!ready) return <div className="lisso-admin"><div className="la-wrap"><p className="la-muted">読み込み中…</p></div></div>;
   if (!userId) return <div className="lisso-admin"><Login /></div>;
@@ -63,8 +63,8 @@ export default function AdminPage() {
       <div className="lisso-admin"><div className="la-wrap">
         <div className="la-hint" style={{ marginTop: "3rem" }}>
           このアカウントにはプロフィールが未登録です。<br />
-          Supabase で <code>database/lisso_admin_schema.sql</code> を実行し、
-          このユーザーの <code>lisso_profiles</code> 行（role と name）が作成されているかご確認ください。
+          Supabase の <code>public.profiles</code> にこのユーザーの行（display_name と role）が
+          あるかご確認ください（通常は新規ユーザー作成時に自動作成されます）。
           <div style={{ marginTop: ".8rem" }}>
             <button className="la-btn sm" onClick={logout}>ログアウト</button>
           </div>
@@ -84,7 +84,7 @@ export default function AdminPage() {
           <div className="la-brand">SHISHA LISSO<small>ADMIN</small></div>
           <div className="la-spacer" />
           <div className="la-who">
-            <b>{profile.name}</b>{" "}
+            <b>{profile.display_name}</b>{" "}
             <span className={`la-pill ${isAdmin ? "admin" : ""}`}>{isAdmin ? "管理者" : "一般"}</span>
           </div>
           <button className="la-btn sm ghost" onClick={logout}>ログアウト</button>

@@ -20,12 +20,17 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
   },
 });
 
-export type Role = "admin" | "staff";
+// 既存 ShishaOS の profiles テーブルに合わせる（role: user|curator|admin）
+export type Role = "user" | "curator" | "admin";
 
 export type Profile = {
   id: string;
-  name: string;
+  display_name: string;
   role: Role;
+};
+
+export type StaffWage = {
+  profile_id: string;
   hourly_wage: number;
 };
 

@@ -48,7 +48,7 @@ export function Login() {
       </form>
       <div className="la-hint">
         初回セットアップ: Supabase で <code>database/lisso_admin_schema.sql</code> を実行し、
-        Authentication → Users から「ゆうき（管理者）」「さおとめ（一般）」のアカウントを作成してください。
+        既存の <code>profiles</code> でゆうき=admin / さおとめ=user の役割を設定してください。
         詳しい手順は <code>database/LISSO_ADMIN_SETUP.md</code> を参照。
       </div>
     </div>

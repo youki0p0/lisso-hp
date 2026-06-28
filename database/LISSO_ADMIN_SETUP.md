@@ -1,61 +1,60 @@
 # SHISHA LISSO 管理者ページ セットアップ手順
 
-管理者ページ（`/admin`）は Supabase をバックエンドに使います。下記をSupabaseのダッシュボードでX1回だけ行えば利用開始できます。
+管理者ページ（`/admin`）は Supabase をバックエンドに使います。
+**既存の ShishaOS マイグレーション（`public.profiles` / role = user|curator|admin /
+新規ユーザー自動作成トリガー）が適用済みのプロジェクトをそのまま流用**します。
 
 対象プロジェクト: `https://ykynfdrmtskmyvrrrwux.supabase.co`
 
 ---
 
-## 1. テーブル作成（SQL）
+## 1. 追加テーブルの作成（SQL）
 
-1. Supabase ダッシュボード → 左メニュー **SQL Editor** を開く
-2. [`database/lisso_admin_schema.sql`](./lisso_admin_schema.sql) の中身を全部貼り付けて **Run**
-3. テーブル `lisso_profiles` などが作成され、初期データ（曜日既定の営業時間・7月の定休日=水曜・サンプルメニュー）が入ります
+1. Supabase ダッシュボード → **SQL Editor**
+2. [`database/lisso_admin_schema.sql`](./lisso_admin_schema.sql) を貼り付けて **Run**
 
-> 既存の他テーブルには影響しません（すべて `lisso_` 接頭辞 + RLS で分離）。
+これで `lisso_` 接頭辞のテーブル（時給・曜日既定・月設定・個別上書き・メニュー・タイムカード）と
+RLS・管理者判定関数 `lisso_is_admin()`・初期データが作成されます。
+**既存の `profiles` などには手を加えません**（参照するだけ）。
 
 ---
 
-## 2. アカウント作成（2名）
+## 2. アカウントと役割
 
-ダッシュボード → **Authentication → Users → Add user** で2人作成します。
-それぞれ **「Auto Confirm User」をオン**にしてください（オンにしないとログインできません）。
+アカウントは既存の認証フロー（サインアップ）または **Authentication → Users → Add user**
+（**Auto Confirm User** をオン）で用意します。`profiles` 行はトリガーで自動作成されます。
 
-| 表示名 | 役割 | 例: メール | パスワード |
-|--------|------|-----------|-----------|
-| ゆうき | 管理者(admin) | 任意（例: youki2227@gmail.com） | 任意 |
-| さおとめ | 一般(staff) | 任意（例: saotome@shisha-lisso.jp） | 任意 |
-
-作成後、**SQL Editor** で下記を実行して名前と役割を設定します
-（メールアドレスは上で作成したものに置き換えてください）。
+作成後、**SQL Editor** で役割と時給を設定します（メールは実際のものに置換）。
 
 ```sql
 -- ゆうき = 管理者
-update public.lisso_profiles
-set name = 'ゆうき', role = 'admin'
-where id = (select id from auth.users where email = 'ここにゆうきのメール');
+update public.profiles set role = 'admin', display_name = 'ゆうき'
+where id = (select id from auth.users where email = 'ゆうきのメール');
 
--- さおとめ = 一般（時給は任意。あとで本人が画面から変更可）
-update public.lisso_profiles
-set name = 'さおとめ', role = 'staff', hourly_wage = 1200
-where id = (select id from auth.users where email = 'ここにさおとめのメール');
+-- さおとめ = 一般
+update public.profiles set role = 'user', display_name = 'さおとめ'
+where id = (select id from auth.users where email = 'さおとめのメール');
+
+-- さおとめ の時給（本人が画面からも変更可）
+insert into public.lisso_staff_wage (profile_id, hourly_wage)
+select id, 1200 from auth.users where email = 'さおとめのメール'
+on conflict (profile_id) do update set hourly_wage = excluded.hourly_wage;
 ```
 
-> ユーザー作成時にトリガーが自動で `lisso_profiles` 行を作るので、上のSQLは
-> その行の名前・役割・時給を上書きするだけです。
+> `role = 'admin'` のユーザーが管理者（全設定可）。それ以外（user / curator）は一般です。
 
 ---
 
 ## 3. ログイン
 
 `https://<デプロイ先>/admin`（ローカルは `http://localhost:3000/admin`）を開き、
-作成したメール／パスワードでログインします。
+メール／パスワードでログインします。
 
 ---
 
 ## 役割と権限
 
-| 機能 | ゆうき（管理者） | さおとめ（一般） |
+| 機能 | ゆうき（admin） | さおとめ（user） |
 |------|:--:|:--:|
 | 営業カレンダーの設定（定休日・個別上書き） | ✅ | 閲覧のみ |
 | 料金メニューの編集 | ✅ | 閲覧のみ |
@@ -66,12 +65,12 @@ where id = (select id from auth.users where email = 'ここにさおとめのメ
 ## カレンダーの自動ルール
 
 - **祝日**: 日本の祝日（[holidays-jp](https://holidays-jp.github.io/) API）を自動取得し、日付を赤表示（営業状態は変えません）
-- **定休日**: 月ごとに曜日で設定（例: 7月=水曜）。該当日はセルを暗く表示
+- **定休日**: 月ごとに曜日で設定（例: 7月=水曜）。該当日はセルを暗く
 - **毎月1日**: 自動で「店休日」（セルを暗く）
-- **個別上書き**: 日付セルをクリックして、開店日/店休日・担当（ゆうき/さおとめ）・開店〜閉店（30分単位）を設定可能。「既定に戻す」で上書きを解除
+- **個別上書き**: 日付セルをクリックして、開店日/店休日・担当（ゆうき/さおとめ）・開店〜閉店（30分単位）を設定可能。「既定に戻す」で解除
 
 ## 補足
 
 - 接続情報（URL・公開キー）は `apps/lisso-home/lib/supabase.ts` に設定済み。
-  環境変数 `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` を設定すればそちらが優先されます。
-- 公開（publishable）キーはクライアントに露出して問題ないキーです。データ保護は RLS で行っています。
+  環境変数 `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` があればそちらを優先。
+- 公開（publishable）キーはクライアントに露出して問題ないキーです。保護は RLS で行います。

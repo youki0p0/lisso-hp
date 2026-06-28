@@ -13,34 +13,32 @@ export function TimecardTab({ profile, profiles }: { profile: Profile; profiles:
   const [month, setMonth] = React.useState(today.getMonth() + 1);
   // 管理者は対象スタッフを選択可。一般は自分のみ。
   const [targetId, setTargetId] = React.useState(profile.id);
-  const target = profiles.find((p) => p.id === targetId) ?? profile;
   const canEdit = isAdmin || targetId === profile.id;
 
-  const [wage, setWage] = React.useState(target.hourly_wage);
+  const [wage, setWage] = React.useState(0);
   const [cards, setCards] = React.useState<Timecard[]>([]);
   const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => setWage(target.hourly_wage), [target.hourly_wage, targetId]);
 
   const load = React.useCallback(async () => {
     setLoading(true);
     const from = `${year}-${pad2(month)}-01`;
     const to = `${year}-${pad2(month)}-31`;
-    const { data } = await supabase
-      .from("lisso_timecards")
-      .select("*")
-      .eq("profile_id", targetId)
-      .gte("work_date", from)
-      .lte("work_date", to)
-      .order("work_date");
-    setCards((data as Timecard[]) ?? []);
+    const [tc, w] = await Promise.all([
+      supabase.from("lisso_timecards").select("*")
+        .eq("profile_id", targetId).gte("work_date", from).lte("work_date", to).order("work_date"),
+      supabase.from("lisso_staff_wage").select("hourly_wage").eq("profile_id", targetId).maybeSingle(),
+    ]);
+    setCards((tc.data as Timecard[]) ?? []);
+    setWage((w.data?.hourly_wage as number) ?? 0);
     setLoading(false);
   }, [year, month, targetId]);
 
   React.useEffect(() => { load(); }, [load]);
 
   const saveWage = async () => {
-    await supabase.from("lisso_profiles").update({ hourly_wage: wage }).eq("id", targetId);
+    await supabase.from("lisso_staff_wage").upsert({
+      profile_id: targetId, hourly_wage: wage, updated_at: new Date().toISOString(),
+    });
   };
 
   const addCard = async () => {
@@ -83,7 +81,7 @@ export function TimecardTab({ profile, profiles }: { profile: Profile; profiles:
           <div className="la-field">
             <label>対象スタッフ</label>
             <select value={targetId} onChange={(e) => setTargetId(e.target.value)}>
-              {profiles.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}
+              {profiles.map((p) => <option key={p.id} value={p.id}>{p.display_name}</option>)}
             </select>
           </div>
         )}
