@@ -150,3 +150,75 @@ on conflict do nothing;
 -- insert into public.lisso_staff_wage (profile_id, hourly_wage)
 --   select id, 1200 from auth.users where email = 'さおとめのメール'
 --   on conflict (profile_id) do update set hourly_wage = excluded.hourly_wage;
+
+-- =====================================================================
+--  役割を User / Staff / Admin の3段に拡張 ＋ メール→役割の紐付け
+-- =====================================================================
+
+-- profiles.role の許容値に 'staff' を追加（既存の curator も残す）
+alter table public.profiles drop constraint if exists profiles_role_check;
+alter table public.profiles
+  add constraint profiles_role_check check (role in ('user','staff','curator','admin'));
+
+-- メールアドレスに役割を事前付与（未登録メールでも可。サインアップ時に自動適用）
+create table if not exists public.lisso_role_grants (
+  email      text primary key,
+  role       text not null check (role in ('user','staff','admin')),
+  updated_at timestamptz not null default now()
+);
+alter table public.lisso_role_grants enable row level security;
+-- アクセスは下記のSECURITY DEFINER関数経由のみ（直接のクライアントアクセスは不可）
+
+-- サインアップ時、付与済みメールなら role を反映（既存 handle_new_user の後に実行）
+create or replace function public.lisso_apply_role_grant()
+returns trigger language plpgsql security definer set search_path = public as $$
+declare g text;
+begin
+  select role into g from public.lisso_role_grants where lower(email) = lower(new.email);
+  if g is not null then
+    update public.profiles set role = g where id = new.id;
+  end if;
+  return new;
+end $$;
+
+drop trigger if exists zz_lisso_role_grant on auth.users;
+create trigger zz_lisso_role_grant
+  after insert on auth.users
+  for each row execute function public.lisso_apply_role_grant();
+
+-- 管理者用: ユーザー一覧（メール込み）
+create or replace function public.lisso_admin_list_users()
+returns table(id uuid, email text, display_name text, role text)
+language plpgsql security definer set search_path = public as $$
+begin
+  if not public.lisso_is_admin() then raise exception 'forbidden'; end if;
+  return query
+    select p.id, u.email::text, p.display_name, p.role
+    from public.profiles p join auth.users u on u.id = p.id
+    order by p.display_name;
+end $$;
+
+-- 管理者用: 既存ユーザーの役割変更
+create or replace function public.lisso_admin_set_role(p_id uuid, p_role text)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  if not public.lisso_is_admin() then raise exception 'forbidden'; end if;
+  if p_role not in ('user','staff','admin') then raise exception 'bad role'; end if;
+  update public.profiles set role = p_role where id = p_id;
+end $$;
+
+-- 管理者用: メールに役割を紐付け（既存アカウントは即時反映、未登録は次回サインアップ時）
+create or replace function public.lisso_admin_grant_email(p_email text, p_role text)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  if not public.lisso_is_admin() then raise exception 'forbidden'; end if;
+  if p_role not in ('user','staff','admin') then raise exception 'bad role'; end if;
+  insert into public.lisso_role_grants(email, role) values (lower(p_email), p_role)
+    on conflict (email) do update set role = excluded.role, updated_at = now();
+  update public.profiles set role = p_role
+    where id = (select id from auth.users where lower(email) = lower(p_email));
+end $$;
+
+grant execute on function public.lisso_admin_list_users() to authenticated;
+grant execute on function public.lisso_admin_set_role(uuid, text) to authenticated;
+grant execute on function public.lisso_admin_grant_email(text, text) to authenticated;

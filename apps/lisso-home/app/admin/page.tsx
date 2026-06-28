@@ -7,9 +7,10 @@ import { Login } from "@/components/admin/Login";
 import { CalendarTab } from "@/components/admin/CalendarTab";
 import { MenuTab } from "@/components/admin/MenuTab";
 import { TimecardTab } from "@/components/admin/TimecardTab";
+import { UsersTab } from "@/components/admin/UsersTab";
 import { PrintView, type PrintPayload } from "@/components/admin/PrintView";
 
-type Tab = "calendar" | "menu" | "timecard";
+type Tab = "calendar" | "menu" | "timecard" | "users";
 
 export default function AdminPage() {
   const [ready, setReady] = React.useState(false);
@@ -42,7 +43,9 @@ export default function AdminPage() {
       setProfile(me.data as Profile);
       const all = await supabase.from("profiles").select("id, display_name, role").order("role");
       setProfiles((all.data as Profile[]) ?? []);
-      if ((me.data as Profile).role !== "admin") setTab("timecard");
+      const r = (me.data as Profile).role;
+      if (r === "staff") setTab("timecard");
+      else setTab("calendar");
     })();
   }, [userId]);
 
@@ -75,6 +78,8 @@ export default function AdminPage() {
   if (!profile) return <div className="lisso-admin"><div className="la-wrap"><p className="la-muted">読み込み中…</p></div></div>;
 
   const isAdmin = profile.role === "admin";
+  const isStaff = profile.role === "staff";
+  const canTimecard = isAdmin || isStaff;
 
   return (
     <div className="lisso-admin">
@@ -85,7 +90,9 @@ export default function AdminPage() {
           <div className="la-spacer" />
           <div className="la-who">
             <b>{profile.display_name}</b>{" "}
-            <span className={`la-pill ${isAdmin ? "admin" : ""}`}>{isAdmin ? "管理者" : "一般"}</span>
+            <span className={`la-pill ${isAdmin ? "admin" : ""}`}>
+              {isAdmin ? "Admin" : isStaff ? "Staff" : "User"}
+            </span>
           </div>
           <button className="la-btn sm ghost" onClick={logout}>ログアウト</button>
         </div>
@@ -93,12 +100,18 @@ export default function AdminPage() {
         <div className="la-tabs">
           <button className={`la-tab ${tab === "calendar" ? "active" : ""}`} onClick={() => setTab("calendar")}>営業カレンダー</button>
           <button className={`la-tab ${tab === "menu" ? "active" : ""}`} onClick={() => setTab("menu")}>料金メニュー</button>
-          <button className={`la-tab ${tab === "timecard" ? "active" : ""}`} onClick={() => setTab("timecard")}>タイムカード</button>
+          {canTimecard && (
+            <button className={`la-tab ${tab === "timecard" ? "active" : ""}`} onClick={() => setTab("timecard")}>タイムカード</button>
+          )}
+          {isAdmin && (
+            <button className={`la-tab ${tab === "users" ? "active" : ""}`} onClick={() => setTab("users")}>ユーザー管理</button>
+          )}
         </div>
 
         {tab === "calendar" && <CalendarTab profile={profile} staffNames={staffNames} onPrint={(m) => doPrint({ type: "calendar", ...m })} />}
         {tab === "menu" && <MenuTab profile={profile} onPrint={(items) => doPrint({ type: "menu", items })} />}
-        {tab === "timecard" && <TimecardTab profile={profile} profiles={profiles.length ? profiles : [profile]} />}
+        {tab === "timecard" && canTimecard && <TimecardTab profile={profile} profiles={profiles.length ? profiles : [profile]} />}
+        {tab === "users" && isAdmin && <UsersTab />}
       </div></div>
 
       {/* 印刷専用 */}
