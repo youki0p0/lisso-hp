@@ -16,6 +16,15 @@
 
 > 本書はシーシャという嗜好品（喫煙関連製品）を扱う業界専門書です。内容は原著の記述の忠実な翻訳であり、喫煙を推奨するものではありません。
 
+## Web版（ブラウザで通読）
+
+本書を1冊の本としてブラウザで読める静的リーダーを用意しています。表紙・目次・章ナビゲーション（前/次）・図版表示・モバイル対応を備えています。
+
+- ソース: [`apps/lisso-home/public/baza/`](../../apps/lisso-home/public/baza/)（`index.html` を起点に各章HTML＋`style.css`＋`figures/`）
+- 公開パス（デプロイ時）: サイトの **`/baza/`**（例: `https://<デプロイ先>/baza/`）
+- ローカル確認: `apps/lisso-home/public/baza/index.html` をブラウザで開く
+- 再生成: マークダウンを更新したら `pip install markdown && python scripts/build_baza_reader.py`（章別MD → 静的HTML。図版も `public/baza/figures/` へコピーされます）
+
 ## 目次
 
 | 章 | ファイル | 内容 |
