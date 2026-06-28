@@ -139,4 +139,9 @@ cover_body = f'''
 open(os.path.join(OUT, 'index.html'), 'w', encoding='utf-8').write(
     page(f'{BOOK_TITLE}｜{BOOK_SUB}', cover_body, cls='home', sidebar=sidebar_html(-1)))
 
-print(f'built reader: {len(CHAPTERS)} chapters + cover, {nfigs} figures -> {OUT}')
+# ---- stylesheet (source: scripts/baza_reader_style.css) ----
+_style_src = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'baza_reader_style.css')
+with open(_style_src, encoding='utf-8') as _f:
+    open(os.path.join(OUT, 'style.css'), 'w', encoding='utf-8').write(_f.read())
+
+print(f'built reader: {len(CHAPTERS)} chapters + cover, {nfigs} figures, style.css -> {OUT}')
