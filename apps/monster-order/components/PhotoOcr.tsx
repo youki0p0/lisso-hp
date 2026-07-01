@@ -35,7 +35,7 @@ export function PhotoOcr({ catalog, onAdd }: Props) {
       if (!res.ok) {
         setError(
           res.status === 501
-            ? "実OCRが未設定です（MONSTER_OCR_API_KEY）。下の手入力をご利用ください。"
+            ? "OCRキー未設定（AI Studioの Gemini キー MONSTER_GEMINI_API_KEY 推奨・無料/カード不要）。下の手入力をご利用ください。"
             : data.message || data.error || "OCRに失敗しました",
         );
         return;

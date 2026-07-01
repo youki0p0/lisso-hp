@@ -12,13 +12,17 @@
 ## 技術
 - Next.js 15 / React 19（App Router、プレーンCSS）。
 - 状態は端末の `localStorage` に保存（MVP・DB不要）。将来 `lib/store.ts` を差し替えれば DB 化可能。
-- OCR は `POST /api/ocr`（Google Cloud Vision、`MONSTER_OCR_API_KEY`）。
+- OCR は `POST /api/ocr`。プロバイダは2種（片方でOK）:
+  - **Gemini（推奨・無料/カード不要）** — `MONSTER_GEMINI_API_KEY`。取得: https://aistudio.google.com/apikey 。OCR＋「商品名 x数量」整形まで一発。
+  - **Cloud Vision** — `MONSTER_OCR_API_KEY`（要・GCP課金）。
 - カタログは `GET /api/catalog`（対象ストアの `/products.json` を server 側でプロキシ）。
 
 ## 環境変数（`.env.example` 参照）
 - `NEXT_PUBLIC_MONSTER_SHOP_DOMAIN` — 対象Shopifyドメイン。既定 `newemoshisha.com`（公開中で検証可）。
   シーシャモンスター公開後は `shisha-monster.com` に変更。
-- `MONSTER_OCR_API_KEY` — Google Cloud Vision の APIキー（サーバー側のみ）。未設定でも手入力は可能。
+- `MONSTER_GEMINI_API_KEY` — **推奨**。Google AI Studio の Gemini キー（無料枠・カード不要）。サーバー側のみ。
+- `MONSTER_OCR_API_KEY` — 代替。Google Cloud Vision の APIキー（要・GCP課金）。
+- どちらも未設定でも手入力は可能。
 
 ## 開発
 ```bash
